@@ -23,11 +23,41 @@ const PHRASES = [
   "Coragem para ser ruim em algo novo.",
 ];
 
-function TypewriterQuotes() {
+// Lateral-margin slots for the floating quote: each pairs a vertical zone
+// (top/middle/bottom of the page) with a side (left or right of the centered
+// content column). The left/right offset formula matches the content column's
+// own math (max-w-[480px] + px-6 padding), so the quote can never drift into
+// the column regardless of which slot is picked.
+const POSITION_VARIANTS = [
+  "top-[10%] right-[max(1.5rem,calc(50%-520px))]",
+  "top-1/2 -translate-y-1/2 right-[max(1.5rem,calc(50%-520px))]",
+  "bottom-[10%] right-[max(1.5rem,calc(50%-520px))]",
+  "top-[10%] left-[max(1.5rem,calc(50%-520px))]",
+  "top-1/2 -translate-y-1/2 left-[max(1.5rem,calc(50%-520px))]",
+  "bottom-[10%] left-[max(1.5rem,calc(50%-520px))]",
+];
+
+function pickRandomVariantIndex(excludeIndex?: number) {
+  if (POSITION_VARIANTS.length <= 1) return 0;
+  let index = Math.floor(Math.random() * POSITION_VARIANTS.length);
+  while (index === excludeIndex) {
+    index = Math.floor(Math.random() * POSITION_VARIANTS.length);
+  }
+  return index;
+}
+
+function TypewriterQuotes({
+  randomizePosition,
+}: {
+  randomizePosition?: boolean;
+}) {
   const [text, setText] = useState("");
   const [phraseIndex, setPhraseIndex] = useState(0);
   const [isDeleting, setIsDeleting] = useState(false);
   const [pause, setPause] = useState(false);
+  const [variantIndex, setVariantIndex] = useState(() =>
+    pickRandomVariantIndex(),
+  );
 
   useEffect(() => {
     const current = PHRASES[phraseIndex];
@@ -58,13 +88,29 @@ function TypewriterQuotes() {
     return () => clearTimeout(timeout);
   }, [text, phraseIndex, isDeleting, pause]);
 
-  return (
+  // Re-roll the lateral position each time a new phrase starts.
+  useEffect(() => {
+    if (!randomizePosition) return;
+    setVariantIndex((previous) => pickRandomVariantIndex(previous));
+  }, [phraseIndex, randomizePosition]);
+
+  const quote = (
     <div className="font-hand text-[color:var(--brand-red)] text-2xl lg:text-3xl xl:text-4xl leading-snug">
       <span>{text}</span>
       <span
         className="inline-block w-[2px] h-[1em] bg-current ml-1 align-middle animate-pulse"
         aria-hidden="true"
       />
+    </div>
+  );
+
+  if (!randomizePosition) {
+    return quote;
+  }
+
+  return (
+    <div className={`absolute w-56 xl:w-72 ${POSITION_VARIANTS[variantIndex]}`}>
+      {quote}
     </div>
   );
 }
@@ -188,12 +234,12 @@ const GALLERY_SLOTS = [
 function Index() {
   return (
     <main className="relative min-h-screen bg-[color:var(--brand-cream)] flex justify-center overflow-hidden">
-      {/* Desktop: typewriter floating on the right side */}
+      {/* Desktop: typewriter floating at a random spot in the lateral margins */}
       <aside
-        className="hidden lg:block absolute top-1/2 -translate-y-1/2 right-[max(1.5rem,calc(50%-520px))] w-56 xl:w-72 z-10"
+        className="hidden lg:block absolute inset-0 z-10 pointer-events-none"
         aria-label="Frases em digitação"
       >
-        <TypewriterQuotes />
+        <TypewriterQuotes randomizePosition />
       </aside>
 
       <div className="w-full max-w-[480px] relative px-6 pt-6 pb-10">
