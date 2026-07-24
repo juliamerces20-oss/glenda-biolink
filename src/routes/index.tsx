@@ -1,10 +1,11 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
 import { ArrowUpRight } from "lucide-react";
-import { useEffect, useState } from "react";
+import { useEffect, useState, type ReactNode } from "react";
 import gmAssetUrl from "@/assets/gm.png";
 import topRightAssetUrl from "@/assets/top-right.png";
 import cajuAssetUrl from "@/assets/caju-glenda.png";
 import eyeAssetUrl from "@/assets/eye-mentoria.png";
+import { buildWhatsAppUrl } from "@/lib/contact-links";
 
 const gmAsset = { url: gmAssetUrl };
 const topRightAsset = { url: topRightAssetUrl };
@@ -68,6 +69,119 @@ function TypewriterQuotes() {
   );
 }
 
+function ServiceCard({
+  href,
+  external,
+  eyebrow,
+  title,
+  description,
+  secondary,
+  price,
+  list,
+  cta,
+}: {
+  href: string;
+  external?: boolean;
+  eyebrow?: string;
+  title: string;
+  description: string;
+  secondary?: string;
+  price?: string;
+  list?: string[];
+  cta: string;
+}) {
+  return (
+    <a
+      href={href}
+      {...(external ? { target: "_blank", rel: "noopener noreferrer" } : {})}
+      className="block rounded-[22px] overflow-hidden bg-[color:var(--brand-red-deep)] shadow-[0_15px_40px_-15px_rgba(120,20,20,0.55)] transition-transform hover:-translate-y-0.5 px-6 py-6 text-white"
+    >
+      {eyebrow && (
+        <span className="inline-block mb-2 rounded-full bg-white/15 px-3 py-1 text-[9px] tracking-[0.18em] uppercase text-white/90">
+          {eyebrow}
+        </span>
+      )}
+      <h3
+        className="font-serif-display leading-[1.15]"
+        style={{ fontSize: "clamp(18px, 5vw, 24px)" }}
+      >
+        {title}
+      </h3>
+      <p className="mt-3 text-[13px] leading-[1.5] text-white/90">
+        {description}
+      </p>
+      {secondary && (
+        <p className="mt-2 text-[13px] leading-[1.5] text-white/80">
+          {secondary}
+        </p>
+      )}
+      {list && (
+        <ul className="mt-3 flex flex-wrap gap-x-3 gap-y-1 text-[12px] text-white/85">
+          {list.map((item) => (
+            <li
+              key={item}
+              className="before:content-['•'] before:mr-1 before:text-white/50"
+            >
+              {item}
+            </li>
+          ))}
+        </ul>
+      )}
+      {price && (
+        <p className="mt-2 text-[11px] tracking-[0.08em] uppercase text-white/70">
+          {price}
+        </p>
+      )}
+      <div className="mt-4 flex items-center justify-between gap-4">
+        <span className="text-[10px] tracking-[0.22em] uppercase text-white/85">
+          {cta}
+        </span>
+        <ArrowUpRight className="shrink-0" strokeWidth={1.5} size={20} />
+      </div>
+    </a>
+  );
+}
+
+function ProjectLinkCard({
+  href,
+  children,
+}: {
+  href: string;
+  children: ReactNode;
+}) {
+  return (
+    <a
+      href={href}
+      target="_blank"
+      rel="noopener noreferrer"
+      className="block rounded-[22px] bg-white border border-neutral-200 px-6 py-5 shadow-[0_10px_25px_-15px_rgba(0,0,0,0.15)] transition-transform hover:-translate-y-0.5"
+    >
+      <div className="flex items-center justify-between gap-4">
+        <span
+          className="font-serif-display text-[color:var(--brand-red)]"
+          style={{ fontSize: "18px" }}
+        >
+          {children}
+        </span>
+        <ArrowUpRight
+          className="shrink-0 text-[color:var(--brand-red)]"
+          strokeWidth={1.5}
+          size={18}
+        />
+      </div>
+    </a>
+  );
+}
+
+const GALLERY_SLOTS = [
+  "#galeria-aulas-1",
+  "#galeria-aulas-2",
+  "#galeria-aulas-3",
+  "#galeria-aulas-4",
+  "#galeria-aulas-5",
+  "#galeria-aulas-6",
+];
+
 function Index() {
   return (
     <main className="relative min-h-screen bg-[color:var(--brand-cream)] flex justify-center overflow-hidden">
@@ -113,68 +227,185 @@ function Index() {
             Glenda Maria
           </h1>
           <p className="mt-3 text-[10px] tracking-[0.28em] text-neutral-800 uppercase text-center">
-            Jornalista e Estrategista de Marcas
+            Jornalista | Estrategista de Marcas | Especialista em Marketing
           </p>
-          <p className="mt-6 text-center text-[color:var(--brand-red)] text-[14px] tracking-[0.03em] leading-[1.15] max-w-xs">
-            <span className="align-top">“</span>Impulsionando negócios através
-            <br />
-            da produção de conteúdo.<span>”</span>
+          <p className="mt-6 text-center text-[color:var(--brand-red)] text-[14px] tracking-[0.03em] leading-[1.35] max-w-xs">
+            Impulsiono negócios por meio de uma comunicação clara, estratégica e
+            intencional, transformando posicionamento em crescimento e
+            oportunidades.
           </p>
         </section>
 
         {/* Consultoria CTA */}
-        <a
-          href="#consultoria"
+        <Link
+          to="/consultoria"
           className="mt-10 block rounded-[22px] bg-[color:var(--brand-orange)] pl-6 pr-8 py-5 text-white shadow-[0_10px_30px_-12px_rgba(224,120,30,0.6)] transition-transform hover:-translate-y-0.5"
         >
           <h2
             className="font-serif-display leading-none whitespace-nowrap"
             style={{ fontSize: "clamp(18px, 5vw, 26px)" }}
           >
-            Vamos marcar um consultoria?
+            Agende uma conversa gratuita
           </h2>
           <div className="mt-3 flex items-end justify-between gap-4">
             <p className="text-[10px] tracking-[0.18em] uppercase text-white/95 leading-[1.55]">
-              Responda 4 perguntas rápidas e eu
-              <br />
-              te aponto o melhor caminho.
+              Vamos conversar sobre o seu negócio?
             </p>
             <ArrowUpRight className="shrink-0" strokeWidth={1.5} size={20} />
           </div>
-        </a>
+        </Link>
 
         {/* Caju divider */}
         <div className="my-7 flex justify-center" aria-hidden="true">
           <img src={cajuAsset.url} alt="" className="w-8 h-auto" />
         </div>
 
-        {/* Mentoria card */}
-        <a
-          href="#mentoria"
-          className="block rounded-[22px] overflow-hidden bg-[color:var(--brand-red-deep)] shadow-[0_15px_40px_-15px_rgba(120,20,20,0.55)] transition-transform hover:-translate-y-0.5"
+        {/* Services */}
+        <h2
+          className="mt-10 text-center font-serif-display text-[color:var(--brand-red)]"
+          style={{ fontSize: "clamp(22px, 6vw, 30px)" }}
         >
-          <img
-            src={eyeAsset.url}
-            alt="Comunicação com intencionalidade e beleza"
-            loading="lazy"
-            className="w-full h-auto object-cover block"
-          />
-          <div className="px-6 pb-6 pt-2 text-white">
-            <h3
-              className="font-serif-display leading-[1.1]"
-              style={{ fontSize: "clamp(18px, 5vw, 26px)" }}
-            >
-              Mentoria com Intencionalidade
-              <br />e Beleza
-            </h3>
-            <div className="mt-3 flex items-end justify-between gap-4">
-              <p className="text-[10px] tracking-[0.22em] uppercase text-white/85">
-                Se cadastre na lista de espera
+          Como posso te ajudar
+        </h2>
+
+        <div className="mt-6 flex flex-col gap-5">
+          {/* Mentoria */}
+          <a
+            // PLACEHOLDER: Glenda/Ju devem substituir pelo link real de checkout da mentoria
+            href="#checkout-mentoria"
+            className="block rounded-[22px] overflow-hidden bg-[color:var(--brand-red-deep)] shadow-[0_15px_40px_-15px_rgba(120,20,20,0.55)] transition-transform hover:-translate-y-0.5"
+          >
+            <img
+              src={eyeAsset.url}
+              alt="Mentoria com Glenda Maria"
+              loading="lazy"
+              className="w-full h-auto object-cover block"
+            />
+            <div className="px-6 pb-6 pt-2 text-white">
+              <h3
+                className="font-serif-display leading-[1.1]"
+                style={{ fontSize: "clamp(18px, 5vw, 26px)" }}
+              >
+                Mentoria
+              </h3>
+              <p className="mt-3 text-[13px] leading-[1.5] text-white/90">
+                Uma mentoria individual para profissionais e empresários que
+                desejam construir uma comunicação estratégica, posicionar sua
+                marca e transformar as redes sociais em uma ferramenta de
+                crescimento.
               </p>
-              <ArrowUpRight className="shrink-0" strokeWidth={1.5} size={20} />
+              <p className="mt-2 text-[13px] leading-[1.5] text-white/80">
+                Você terá direcionamentos práticos, personalizados e aplicáveis
+                ao seu negócio.
+              </p>
+              {/* PLACEHOLDER: Glenda deve informar o valor real do investimento */}
+              <p className="mt-2 text-[11px] tracking-[0.08em] uppercase text-white/70">
+                Investimento: [valor a definir]
+              </p>
+              <div className="mt-4 flex items-end justify-between gap-4">
+                <span className="text-[10px] tracking-[0.22em] uppercase text-white/85">
+                  Quero minha mentoria
+                </span>
+                <ArrowUpRight
+                  className="shrink-0"
+                  strokeWidth={1.5}
+                  size={20}
+                />
+              </div>
+            </div>
+          </a>
+
+          <ServiceCard
+            // PLACEHOLDER: Glenda/Ju devem substituir pelo link real com os detalhes da consultoria
+            href="#consultoria-detalhes"
+            title="Consultoria"
+            description="Uma análise profunda do seu posicionamento, da sua comunicação e das oportunidades de crescimento da sua marca. Receba um plano estratégico personalizado com direcionamentos claros para fortalecer sua presença digital."
+            cta="Conhecer a consultoria"
+          />
+
+          <ServiceCard
+            // PLACEHOLDER: Glenda/Ju devem substituir pelo link real da análise estratégica
+            href="#analise-estrategica"
+            title="Análise Estratégica das Redes Sociais"
+            description="Descubra exatamente o que está impedindo o crescimento do seu perfil da sua marca. Receba uma análise completa da sua comunicação, posicionamento, conteúdo, identidade, oportunidades e próximos passos."
+            cta="Quero minha análise"
+          />
+
+          <ServiceCard
+            href={buildWhatsAppUrl(
+              "Olá, Glenda! Tenho interesse na Gestão de Redes Sociais para profissionais da saúde.",
+            )}
+            external
+            eyebrow="Exclusiva para profissionais da saúde."
+            title="Gestão de Redes Sociais"
+            description="Planejamento, produção de conteúdo, gestão estratégica e tráfego pago para transformar suas redes sociais em uma ferramenta de autoridade e captação de pacientes."
+            cta="Falar no WhatsApp"
+          />
+
+          <ServiceCard
+            href={buildWhatsAppUrl(
+              "Olá, Glenda! Gostaria de falar sobre uma palestra, evento, podcast ou treinamento.",
+            )}
+            external
+            title="Podcasts, Eventos, Aulas e Treinamentos"
+            description="Disponível para:"
+            list={[
+              "Palestras",
+              "Workshops",
+              "Treinamentos corporativos",
+              "Podcasts",
+              "Eventos",
+              "Participações especiais",
+              "Collabs",
+            ]}
+            cta="Entrar em contato"
+          />
+        </div>
+
+        {/* Projects showcase */}
+        <section className="mt-10">
+          <h2
+            className="text-center font-serif-display text-[color:var(--brand-red)]"
+            style={{ fontSize: "clamp(20px, 5.5vw, 26px)" }}
+          >
+            Projetos que fizeram parte da minha trajetória
+          </h2>
+          <p className="mt-2 text-center text-[12px] text-neutral-700 leading-[1.5] max-w-xs mx-auto">
+            Conheça alguns trabalhos que marcaram minha atuação na comunicação.
+          </p>
+
+          <div className="mt-6 flex flex-col gap-4">
+            {/* PLACEHOLDER: Glenda/Ju devem substituir pelo link real do podcast */}
+            <ProjectLinkCard href="#projeto-ministerio-saude">
+              Podcast – Ministério da Saúde
+            </ProjectLinkCard>
+
+            {/* PLACEHOLDER: Glenda/Ju devem substituir pelo link real do Turistando TV */}
+            <ProjectLinkCard href="#projeto-turistando-tv">
+              Turistando TV
+            </ProjectLinkCard>
+
+            <div className="rounded-[22px] bg-white border border-neutral-200 px-6 py-5 shadow-[0_10px_25px_-15px_rgba(0,0,0,0.15)]">
+              <span
+                className="font-serif-display text-[color:var(--brand-red)]"
+                style={{ fontSize: "18px" }}
+              >
+                Aulas e Treinamentos
+              </span>
+              {/* PLACEHOLDER: Glenda/Ju devem substituir cada slot abaixo por uma foto real */}
+              <div className="mt-3 grid grid-cols-3 gap-2">
+                {GALLERY_SLOTS.map((slot) => (
+                  <div
+                    key={slot}
+                    className="aspect-square rounded-[10px] bg-[color:var(--brand-pink)]/40 border border-dashed border-[color:var(--brand-red)]/30 flex items-center justify-center text-[9px] text-center text-[color:var(--brand-red)]/70 px-1"
+                  >
+                    {slot}
+                  </div>
+                ))}
+              </div>
             </div>
           </div>
-        </a>
+        </section>
 
         {/* Spotify playlist card */}
         <a
@@ -214,7 +445,10 @@ function Index() {
         </footer>
 
         {/* Mobile: typewriter below the content */}
-        <div className="lg:hidden mt-10 flex justify-center" aria-label="Frases em digitação">
+        <div
+          className="lg:hidden mt-10 flex justify-center"
+          aria-label="Frases em digitação"
+        >
           <TypewriterQuotes />
         </div>
       </div>
