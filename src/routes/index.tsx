@@ -72,6 +72,7 @@ function TypewriterQuotes() {
 function ServiceCard({
   href,
   external,
+  background,
   eyebrow,
   title,
   description,
@@ -82,6 +83,7 @@ function ServiceCard({
 }: {
   href: string;
   external?: boolean;
+  background: string;
   eyebrow?: string;
   title: string;
   description: string;
@@ -94,7 +96,8 @@ function ServiceCard({
     <a
       href={href}
       {...(external ? { target: "_blank", rel: "noopener noreferrer" } : {})}
-      className="block rounded-[22px] overflow-hidden bg-[color:var(--brand-red-deep)] shadow-[0_15px_40px_-15px_rgba(120,20,20,0.55)] transition-transform hover:-translate-y-0.5 px-6 py-6 text-white"
+      style={{ backgroundColor: background }}
+      className="block rounded-[22px] overflow-hidden shadow-[0_15px_40px_-15px_rgba(120,20,20,0.55)] transition-transform hover:-translate-y-0.5 px-6 py-6 text-white"
     >
       {eyebrow && (
         <span className="inline-block mb-2 rounded-full bg-white/15 px-3 py-1 text-[9px] tracking-[0.18em] uppercase text-white/90">
@@ -318,6 +321,7 @@ function Index() {
           <ServiceCard
             // PLACEHOLDER: Glenda/Ju devem substituir pelo link real com os detalhes da consultoria
             href="#consultoria-detalhes"
+            background="#634E9A"
             title="Consultoria"
             description="Uma análise profunda do seu posicionamento, da sua comunicação e das oportunidades de crescimento da sua marca. Receba um plano estratégico personalizado com direcionamentos claros para fortalecer sua presença digital."
             cta="Conhecer a consultoria"
@@ -326,6 +330,7 @@ function Index() {
           <ServiceCard
             // PLACEHOLDER: Glenda/Ju devem substituir pelo link real da análise estratégica
             href="#analise-estrategica"
+            background="#304751"
             title="Análise Estratégica das Redes Sociais"
             description="Descubra exatamente o que está impedindo o crescimento do seu perfil da sua marca. Receba uma análise completa da sua comunicação, posicionamento, conteúdo, identidade, oportunidades e próximos passos."
             cta="Quero minha análise"
@@ -336,6 +341,7 @@ function Index() {
               "Olá, Glenda! Tenho interesse na Gestão de Redes Sociais para profissionais da saúde.",
             )}
             external
+            background="#7B9AA6"
             eyebrow="Exclusiva para profissionais da saúde."
             title="Gestão de Redes Sociais"
             description="Planejamento, produção de conteúdo, gestão estratégica e tráfego pago para transformar suas redes sociais em uma ferramenta de autoridade e captação de pacientes."
@@ -347,6 +353,7 @@ function Index() {
               "Olá, Glenda! Gostaria de falar sobre uma palestra, evento, podcast ou treinamento.",
             )}
             external
+            background="#EA8101"
             title="Podcasts, Eventos, Aulas e Treinamentos"
             description="Disponível para:"
             list={[
