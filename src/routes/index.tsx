@@ -260,9 +260,9 @@ function Index() {
               className="w-full h-auto select-none"
             />
             <div
-              className="absolute left-1/2 top-1/2 rounded-full bg-white shadow-[0_10px_30px_-10px_rgba(0,0,0,0.18)] overflow-hidden border-4 border-white"
+              className="absolute left-1/2 top-1/2 rounded-full bg-white shadow-[0_10px_30px_-10px_rgba(0,0,0,0.18)] overflow-hidden border-[3px] border-white"
               style={{
-                width: "48%",
+                width: "35%",
                 aspectRatio: "1 / 1",
                 transform: "translate(-50%, -50%)",
               }}
