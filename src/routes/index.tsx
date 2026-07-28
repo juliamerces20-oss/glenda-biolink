@@ -426,13 +426,11 @@ function Index() {
           </p>
 
           <div className="mt-6 flex flex-col gap-4">
-            {/* PLACEHOLDER: Glenda/Ju devem substituir pelo link real do podcast */}
-            <ProjectLinkCard href="#projeto-ministerio-saude">
+            <ProjectLinkCard href="https://open.spotify.com/show/0NUG0P5uSY1elOZC94108w?si=82b68c3fc6654237">
               Podcast – Ministério da Saúde
             </ProjectLinkCard>
 
-            {/* PLACEHOLDER: Glenda/Ju devem substituir pelo link real do Turistando TV */}
-            <ProjectLinkCard href="#projeto-turistando-tv">
+            <ProjectLinkCard href="https://www.instagram.com/turistandopiaui/">
               Turistando TV
             </ProjectLinkCard>
 
