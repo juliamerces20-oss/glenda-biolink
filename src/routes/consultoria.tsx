@@ -23,8 +23,6 @@ function ConsultoriaPage() {
     const message = `Nome: ${nome} / Instagram: ${instagram} / Desafio: ${desafio} / Objetivo: ${objetivo}`;
     window.open(buildWhatsAppUrl(message), "_blank", "noopener,noreferrer");
 
-    // PLACEHOLDER: Glenda/Ju devem substituir AGENDA_LINK_PLACEHOLDER
-    // (em src/lib/contact-links.ts) pelo link real de agendamento antes de publicar.
     window.location.href = AGENDA_LINK_PLACEHOLDER;
   }
 

@@ -365,8 +365,8 @@ function Index() {
           </a>
 
           <ServiceCard
-            // PLACEHOLDER: Glenda/Ju devem substituir pelo link real com os detalhes da consultoria
-            href="#consultoria-detalhes"
+            href="https://wa.me/5521968893152?text=Oi%2C%20eu%20vim%20do%20biolink.%20Gostaria%20de%20mais%20informa%C3%A7%C3%B5es%20sobre%20a%20sua%20consultoria"
+            external
             background="#634E9A"
             title="Consultoria"
             description="Uma análise profunda do seu posicionamento, da sua comunicação e das oportunidades de crescimento da sua marca. Receba um plano estratégico personalizado com direcionamentos claros para fortalecer sua presença digital."
@@ -374,8 +374,8 @@ function Index() {
           />
 
           <ServiceCard
-            // PLACEHOLDER: Glenda/Ju devem substituir pelo link real da análise estratégica
-            href="#analise-estrategica"
+            href="https://wa.me/5521968893152?text=Oi%2C%20eu%20vim%20do%20biolink.%20Gostaria%20de%20mais%20informa%C3%A7%C3%B5es%20sobre%20a%20an%C3%A1lise%20estrat%C3%A9gica%20de%20redes%20sociais"
+            external
             background="#304751"
             title="Análise Estratégica das Redes Sociais"
             description="Descubra exatamente o que está impedindo o crescimento do seu perfil da sua marca. Receba uma análise completa da sua comunicação, posicionamento, conteúdo, identidade, oportunidades e próximos passos."
@@ -383,9 +383,7 @@ function Index() {
           />
 
           <ServiceCard
-            href={buildWhatsAppUrl(
-              "Olá, Glenda! Tenho interesse na Gestão de Redes Sociais para profissionais da saúde.",
-            )}
+            href="https://wa.me/5521968893152?text=Oi%2C%20eu%20vim%20do%20biolink.%20Gostaria%20de%20mais%20informa%C3%A7%C3%B5es%20sobre%20o%20servi%C3%A7o%20de%20gest%C3%A3o%20de%20redes%20sociais"
             external
             background="#7B9AA6"
             eyebrow="Exclusiva para profissionais da saúde."

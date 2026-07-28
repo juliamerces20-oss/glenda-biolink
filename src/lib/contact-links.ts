@@ -2,9 +2,8 @@
 // (formato internacional, só dígitos, ex: "5521970295930").
 export const WHATSAPP_NUMBER_PLACEHOLDER = "5500000000000";
 
-// PLACEHOLDER: Glenda/Ju devem substituir pelo link real de agendamento
-// (Calendly, Cal.com, etc.) antes de publicar.
-export const AGENDA_LINK_PLACEHOLDER = "#agenda-glenda";
+export const AGENDA_LINK_PLACEHOLDER =
+  "https://calendar.app.google/qnigoVZBBHGBCpDK9";
 
 export function buildWhatsAppUrl(
   message: string,
