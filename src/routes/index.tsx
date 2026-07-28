@@ -1,5 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { ArrowUpRight } from "lucide-react";
+import { ArrowUpRight, Instagram } from "lucide-react";
 import { useEffect, useState, type ReactNode } from "react";
 import gmAssetUrl from "@/assets/gm.png";
 import topRightAssetUrl from "@/assets/top-right.png";
@@ -277,6 +277,15 @@ function Index() {
           <p className="mt-3 text-[10px] tracking-[0.28em] text-neutral-800 uppercase text-center">
             Jornalista | Estrategista de Marcas | Especialista em Marketing
           </p>
+          <a
+            href="https://www.instagram.com/glendamarialab/"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="Instagram de Glenda Maria"
+            className="mt-4 flex items-center justify-center rounded-full p-2 text-[color:var(--brand-red)] transition-transform hover:-translate-y-0.5"
+          >
+            <Instagram strokeWidth={1.5} size={22} />
+          </a>
           <p className="mt-6 text-center text-[color:var(--brand-red)] text-[14px] tracking-[0.03em] leading-[1.35] max-w-xs">
             Impulsiono negócios por meio de uma comunicação clara, estratégica e
             intencional, transformando posicionamento em crescimento e
