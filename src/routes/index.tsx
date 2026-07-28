@@ -5,11 +5,13 @@ import gmAssetUrl from "@/assets/gm.png";
 import topRightAssetUrl from "@/assets/top-right.png";
 import cajuAssetUrl from "@/assets/caju-glenda.png";
 import eyeAssetUrl from "@/assets/eye-mentoria.png";
+import glendaPhotoUrl from "@/assets/glenda-photo.png";
 
 const gmAsset = { url: gmAssetUrl };
 const topRightAsset = { url: topRightAssetUrl };
 const cajuAsset = { url: cajuAssetUrl };
 const eyeAsset = { url: eyeAssetUrl };
+const glendaPhotoAsset = { url: glendaPhotoUrl };
 
 export const Route = createFileRoute("/")({
   component: Index,
@@ -258,14 +260,20 @@ function Index() {
               className="w-full h-auto select-none"
             />
             <div
-              className="absolute left-1/2 top-1/2 rounded-full bg-white shadow-[0_10px_30px_-10px_rgba(0,0,0,0.18)]"
+              className="absolute left-1/2 top-1/2 rounded-full bg-white shadow-[0_10px_30px_-10px_rgba(0,0,0,0.18)] overflow-hidden border-4 border-white"
               style={{
                 width: "48%",
                 aspectRatio: "1 / 1",
                 transform: "translate(-50%, -50%)",
               }}
-              aria-hidden="true"
-            />
+            >
+              <img
+                src={glendaPhotoAsset.url}
+                alt="Glenda Maria"
+                className="w-full h-full object-cover"
+                style={{ objectPosition: "50% 22%" }}
+              />
+            </div>
           </div>
 
           <h1
