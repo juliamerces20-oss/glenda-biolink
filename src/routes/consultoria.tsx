@@ -7,7 +7,7 @@ export const Route = createFileRoute("/consultoria")({
 });
 
 const fieldClassName =
-  "rounded-[14px] border border-neutral-300 bg-white px-4 py-3 text-[14px] text-neutral-900 outline-none focus:border-[color:var(--brand-orange)] transition-colors";
+  "rounded-[14px] border border-neutral-300 bg-white px-4 py-3 text-[16px] text-neutral-900 outline-none focus:border-[color:var(--brand-orange)] transition-colors";
 const labelClassName =
   "text-[10px] tracking-[0.18em] uppercase text-neutral-600";
 

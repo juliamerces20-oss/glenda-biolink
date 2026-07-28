@@ -283,7 +283,7 @@ function Index() {
               target="_blank"
               rel="noopener noreferrer"
               aria-label="Instagram de Glenda Maria"
-              className="flex items-center justify-center rounded-full p-2 text-[color:var(--brand-red)] transition-transform hover:-translate-y-0.5"
+              className="flex items-center justify-center w-11 h-11 rounded-full text-[color:var(--brand-red)] transition-transform hover:-translate-y-0.5"
             >
               <Instagram strokeWidth={1.5} size={22} />
             </a>
@@ -292,7 +292,7 @@ function Index() {
               target="_blank"
               rel="noopener noreferrer"
               aria-label="LinkedIn de Glenda Maria"
-              className="flex items-center justify-center rounded-full p-2 text-[color:var(--brand-red)] transition-transform hover:-translate-y-0.5"
+              className="flex items-center justify-center w-11 h-11 rounded-full text-[color:var(--brand-red)] transition-transform hover:-translate-y-0.5"
             >
               <Linkedin strokeWidth={1.5} size={22} />
             </a>
