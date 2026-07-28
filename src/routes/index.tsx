@@ -5,7 +5,6 @@ import gmAssetUrl from "@/assets/gm.png";
 import topRightAssetUrl from "@/assets/top-right.png";
 import cajuAssetUrl from "@/assets/caju-glenda.png";
 import eyeAssetUrl from "@/assets/eye-mentoria.png";
-import { buildWhatsAppUrl } from "@/lib/contact-links";
 
 const gmAsset = { url: gmAssetUrl };
 const topRightAsset = { url: topRightAssetUrl };
@@ -393,9 +392,7 @@ function Index() {
           />
 
           <ServiceCard
-            href={buildWhatsAppUrl(
-              "Olá, Glenda! Gostaria de falar sobre uma palestra, evento, podcast ou treinamento.",
-            )}
+            href="https://wa.me/5521968893152?text=Ol%C3%A1%2C%20gostaria%20de%20entrar%20em%20contato"
             external
             background="#EA8101"
             title="Podcasts, Eventos, Aulas e Treinamentos"
