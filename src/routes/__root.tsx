@@ -11,6 +11,11 @@ import { useEffect, type ReactNode } from "react";
 
 import appCss from "../styles.css?url";
 import { reportLovableError } from "../lib/lovable-error-reporting";
+import { EditModeProvider } from "@/hooks/use-edit-mode";
+import { LockButton } from "@/components/edit/LockButton";
+import { PasswordModal } from "@/components/edit/PasswordModal";
+import { ExitEditBanner } from "@/components/edit/ExitEditBanner";
+import { Toaster } from "@/components/ui/sonner";
 
 function NotFoundComponent() {
   return (
@@ -148,8 +153,14 @@ function RootComponent() {
 
   return (
     <QueryClientProvider client={queryClient}>
-      {/* Required: nested routes render here. Removing <Outlet /> breaks all child routes. */}
-      <Outlet />
+      <EditModeProvider>
+        {/* Required: nested routes render here. Removing <Outlet /> breaks all child routes. */}
+        <Outlet />
+        <LockButton />
+        <PasswordModal />
+        <ExitEditBanner />
+        <Toaster position="bottom-right" />
+      </EditModeProvider>
     </QueryClientProvider>
   );
 }
