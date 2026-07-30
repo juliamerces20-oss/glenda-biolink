@@ -6,6 +6,9 @@ import topRightAssetUrl from "@/assets/top-right.png";
 import cajuAssetUrl from "@/assets/caju-glenda.png";
 import eyeAssetUrl from "@/assets/eye-mentoria.png";
 import glendaPhotoUrl from "@/assets/glenda-photo.png";
+import { useEditMode } from "@/hooks/use-edit-mode";
+import { EditableField } from "@/components/edit/EditableField";
+import { EditableImage } from "@/components/edit/EditableImage";
 
 const gmAsset = { url: gmAssetUrl };
 const topRightAsset = { url: topRightAssetUrl };
@@ -224,15 +227,34 @@ function ProjectLinkCard({
 }
 
 const GALLERY_SLOTS = [
-  "#galeria-aulas-1",
-  "#galeria-aulas-2",
-  "#galeria-aulas-3",
-  "#galeria-aulas-4",
-  "#galeria-aulas-5",
-  "#galeria-aulas-6",
-];
+  { key: "gallery1", label: "#galeria-aulas-1" },
+  { key: "gallery2", label: "#galeria-aulas-2" },
+  { key: "gallery3", label: "#galeria-aulas-3" },
+  { key: "gallery4", label: "#galeria-aulas-4" },
+  { key: "gallery5", label: "#galeria-aulas-5" },
+  { key: "gallery6", label: "#galeria-aulas-6" },
+] as const;
+
+const DEFAULT_INSTAGRAM_LINK = "https://www.instagram.com/glendamarialab/";
+const DEFAULT_LINKEDIN_LINK =
+  "https://www.linkedin.com/in/glendamariajornalista/";
+const DEFAULT_MENTORIA_CHECKOUT_LINK = "#checkout-mentoria";
+const DEFAULT_MENTORIA_PRICE_TEXT = "Investimento: [valor a definir]";
+const DEFAULT_WHATSAPP_CONSULTORIA =
+  "https://wa.me/5521968893152?text=Oi%2C%20eu%20vim%20do%20biolink.%20Gostaria%20de%20mais%20informa%C3%A7%C3%B5es%20sobre%20a%20sua%20consultoria";
+const DEFAULT_WHATSAPP_ANALISE =
+  "https://wa.me/5521968893152?text=Oi%2C%20eu%20vim%20do%20biolink.%20Gostaria%20de%20mais%20informa%C3%A7%C3%B5es%20sobre%20a%20an%C3%A1lise%20estrat%C3%A9gica%20de%20redes%20sociais";
+const DEFAULT_WHATSAPP_GESTAO =
+  "https://wa.me/5521968893152?text=Oi%2C%20eu%20vim%20do%20biolink.%20Gostaria%20de%20mais%20informa%C3%A7%C3%B5es%20sobre%20o%20servi%C3%A7o%20de%20gest%C3%A3o%20de%20redes%20sociais";
+const DEFAULT_WHATSAPP_PODCASTS =
+  "https://wa.me/5521968893152?text=Ol%C3%A1%2C%20gostaria%20de%20entrar%20em%20contato";
+const DEFAULT_PODCAST_LINK =
+  "https://open.spotify.com/show/0NUG0P5uSY1elOZC94108w?si=82b68c3fc6654237";
+const DEFAULT_TURISTANDO_LINK = "https://www.instagram.com/turistandopiaui/";
 
 function Index() {
+  const { content } = useEditMode();
+
   return (
     <main className="relative min-h-screen bg-[color:var(--brand-cream)] flex justify-center overflow-hidden">
       {/* Desktop: typewriter floating at a random spot in the lateral margins */}
@@ -267,11 +289,13 @@ function Index() {
                 transform: "translate(-50%, -50%)",
               }}
             >
-              <img
-                src={glendaPhotoAsset.url}
+              <EditableImage
+                contentKey="heroPhoto"
+                defaultSrc={glendaPhotoAsset.url}
                 alt="Glenda Maria"
-                className="w-full h-full object-cover"
-                style={{ objectPosition: "50% 22%" }}
+                className="h-full w-full"
+                imgClassName="w-full h-full object-cover"
+                imgStyle={{ objectPosition: "50% 22%" }}
               />
             </div>
           </div>
@@ -286,24 +310,36 @@ function Index() {
             Jornalista | Estrategista de Marcas | Especialista em Marketing
           </p>
           <div className="mt-4 flex items-center justify-center gap-4">
-            <a
-              href="https://www.instagram.com/glendamarialab/"
-              target="_blank"
-              rel="noopener noreferrer"
-              aria-label="Instagram de Glenda Maria"
-              className="flex items-center justify-center w-11 h-11 rounded-full text-[color:var(--brand-red)] transition-transform hover:-translate-y-0.5"
+            <EditableField
+              contentKey="instagramLink"
+              defaultValue={DEFAULT_INSTAGRAM_LINK}
+              label="Link do Instagram"
             >
-              <Instagram strokeWidth={1.5} size={22} />
-            </a>
-            <a
-              href="https://www.linkedin.com/in/glendamariajornalista/"
-              target="_blank"
-              rel="noopener noreferrer"
-              aria-label="LinkedIn de Glenda Maria"
-              className="flex items-center justify-center w-11 h-11 rounded-full text-[color:var(--brand-red)] transition-transform hover:-translate-y-0.5"
+              <a
+                href={content.instagramLink ?? DEFAULT_INSTAGRAM_LINK}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Instagram de Glenda Maria"
+                className="flex items-center justify-center w-11 h-11 rounded-full text-[color:var(--brand-red)] transition-transform hover:-translate-y-0.5"
+              >
+                <Instagram strokeWidth={1.5} size={22} />
+              </a>
+            </EditableField>
+            <EditableField
+              contentKey="linkedinLink"
+              defaultValue={DEFAULT_LINKEDIN_LINK}
+              label="Link do LinkedIn"
             >
-              <Linkedin strokeWidth={1.5} size={22} />
-            </a>
+              <a
+                href={content.linkedinLink ?? DEFAULT_LINKEDIN_LINK}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="LinkedIn de Glenda Maria"
+                className="flex items-center justify-center w-11 h-11 rounded-full text-[color:var(--brand-red)] transition-transform hover:-translate-y-0.5"
+              >
+                <Linkedin strokeWidth={1.5} size={22} />
+              </a>
+            </EditableField>
           </div>
           <p className="mt-6 text-center text-[color:var(--brand-red)] text-[14px] tracking-[0.03em] leading-[1.35] max-w-xs">
             Impulsiono negócios por meio de uma comunicação clara, estratégica e
@@ -346,96 +382,132 @@ function Index() {
 
         <div className="mt-6 flex flex-col gap-5">
           {/* Mentoria */}
-          <a
-            // PLACEHOLDER: Glenda/Ju devem substituir pelo link real de checkout da mentoria
-            href="#checkout-mentoria"
-            className="block rounded-[22px] overflow-hidden bg-[color:var(--brand-red-deep)] shadow-[0_15px_40px_-15px_rgba(120,20,20,0.55)] transition-transform hover:-translate-y-0.5"
+          <EditableField
+            contentKey="mentoriaCheckoutLink"
+            defaultValue={DEFAULT_MENTORIA_CHECKOUT_LINK}
+            label="Link de checkout da mentoria"
           >
-            <img
-              src={eyeAsset.url}
-              alt="Mentoria com Glenda Maria"
-              loading="lazy"
-              className="w-full h-auto object-cover block"
-            />
-            <div className="px-6 pb-6 pt-2 text-white">
-              <h3
-                className="font-serif-display leading-[1.1]"
-                style={{ fontSize: "clamp(18px, 5vw, 26px)" }}
-              >
-                Mentoria
-              </h3>
-              <p className="mt-3 text-[13px] leading-[1.5] text-white/90">
-                Uma mentoria individual para profissionais e empresários que
-                desejam construir uma comunicação estratégica, posicionar sua
-                marca e transformar as redes sociais em uma ferramenta de
-                crescimento.
-              </p>
-              <p className="mt-2 text-[13px] leading-[1.5] text-white/80">
-                Você terá direcionamentos práticos, personalizados e aplicáveis
-                ao seu negócio.
-              </p>
-              {/* PLACEHOLDER: Glenda deve informar o valor real do investimento */}
-              <p className="mt-2 text-[11px] tracking-[0.08em] uppercase text-white/70">
-                Investimento: [valor a definir]
-              </p>
-              <div className="mt-4 flex items-end justify-between gap-4">
-                <span className="text-[10px] tracking-[0.22em] uppercase text-white/85">
-                  Quero minha mentoria
-                </span>
-                <ArrowUpRight
-                  className="shrink-0"
-                  strokeWidth={1.5}
-                  size={20}
-                />
+            <a
+              href={
+                content.mentoriaCheckoutLink ?? DEFAULT_MENTORIA_CHECKOUT_LINK
+              }
+              className="block rounded-[22px] overflow-hidden bg-[color:var(--brand-red-deep)] shadow-[0_15px_40px_-15px_rgba(120,20,20,0.55)] transition-transform hover:-translate-y-0.5"
+            >
+              <img
+                src={eyeAsset.url}
+                alt="Mentoria com Glenda Maria"
+                loading="lazy"
+                className="w-full h-auto object-cover block"
+              />
+              <div className="px-6 pb-6 pt-2 text-white">
+                <h3
+                  className="font-serif-display leading-[1.1]"
+                  style={{ fontSize: "clamp(18px, 5vw, 26px)" }}
+                >
+                  Mentoria
+                </h3>
+                <p className="mt-3 text-[13px] leading-[1.5] text-white/90">
+                  Uma mentoria individual para profissionais e empresários que
+                  desejam construir uma comunicação estratégica, posicionar sua
+                  marca e transformar as redes sociais em uma ferramenta de
+                  crescimento.
+                </p>
+                <p className="mt-2 text-[13px] leading-[1.5] text-white/80">
+                  Você terá direcionamentos práticos, personalizados e
+                  aplicáveis ao seu negócio.
+                </p>
+                <EditableField
+                  contentKey="mentoriaPriceText"
+                  defaultValue={DEFAULT_MENTORIA_PRICE_TEXT}
+                  label="Texto de investimento da mentoria"
+                >
+                  <p className="mt-2 text-[11px] tracking-[0.08em] uppercase text-white/70">
+                    {content.mentoriaPriceText ?? DEFAULT_MENTORIA_PRICE_TEXT}
+                  </p>
+                </EditableField>
+                <div className="mt-4 flex items-end justify-between gap-4">
+                  <span className="text-[10px] tracking-[0.22em] uppercase text-white/85">
+                    Quero minha mentoria
+                  </span>
+                  <ArrowUpRight
+                    className="shrink-0"
+                    strokeWidth={1.5}
+                    size={20}
+                  />
+                </div>
               </div>
-            </div>
-          </a>
+            </a>
+          </EditableField>
 
-          <ServiceCard
-            href="https://wa.me/5521968893152?text=Oi%2C%20eu%20vim%20do%20biolink.%20Gostaria%20de%20mais%20informa%C3%A7%C3%B5es%20sobre%20a%20sua%20consultoria"
-            external
-            background="#634E9A"
-            title="Consultoria"
-            description="Uma análise profunda do seu posicionamento, da sua comunicação e das oportunidades de crescimento da sua marca. Receba um plano estratégico personalizado com direcionamentos claros para fortalecer sua presença digital."
-            cta="Conhecer a consultoria"
-          />
+          <EditableField
+            contentKey="whatsappConsultoria"
+            defaultValue={DEFAULT_WHATSAPP_CONSULTORIA}
+            label="Link do WhatsApp — Consultoria"
+          >
+            <ServiceCard
+              href={content.whatsappConsultoria ?? DEFAULT_WHATSAPP_CONSULTORIA}
+              external
+              background="#634E9A"
+              title="Consultoria"
+              description="Uma análise profunda do seu posicionamento, da sua comunicação e das oportunidades de crescimento da sua marca. Receba um plano estratégico personalizado com direcionamentos claros para fortalecer sua presença digital."
+              cta="Conhecer a consultoria"
+            />
+          </EditableField>
 
-          <ServiceCard
-            href="https://wa.me/5521968893152?text=Oi%2C%20eu%20vim%20do%20biolink.%20Gostaria%20de%20mais%20informa%C3%A7%C3%B5es%20sobre%20a%20an%C3%A1lise%20estrat%C3%A9gica%20de%20redes%20sociais"
-            external
-            background="#304751"
-            title="Análise Estratégica das Redes Sociais"
-            description="Descubra exatamente o que está impedindo o crescimento do seu perfil da sua marca. Receba uma análise completa da sua comunicação, posicionamento, conteúdo, identidade, oportunidades e próximos passos."
-            cta="Quero minha análise"
-          />
+          <EditableField
+            contentKey="whatsappAnalise"
+            defaultValue={DEFAULT_WHATSAPP_ANALISE}
+            label="Link do WhatsApp — Análise Estratégica"
+          >
+            <ServiceCard
+              href={content.whatsappAnalise ?? DEFAULT_WHATSAPP_ANALISE}
+              external
+              background="#304751"
+              title="Análise Estratégica das Redes Sociais"
+              description="Descubra exatamente o que está impedindo o crescimento do seu perfil da sua marca. Receba uma análise completa da sua comunicação, posicionamento, conteúdo, identidade, oportunidades e próximos passos."
+              cta="Quero minha análise"
+            />
+          </EditableField>
 
-          <ServiceCard
-            href="https://wa.me/5521968893152?text=Oi%2C%20eu%20vim%20do%20biolink.%20Gostaria%20de%20mais%20informa%C3%A7%C3%B5es%20sobre%20o%20servi%C3%A7o%20de%20gest%C3%A3o%20de%20redes%20sociais"
-            external
-            background="#7B9AA6"
-            eyebrow="Exclusiva para profissionais da saúde."
-            title="Gestão de Redes Sociais"
-            description="Planejamento, produção de conteúdo, gestão estratégica e tráfego pago para transformar suas redes sociais em uma ferramenta de autoridade e captação de pacientes."
-            cta="Falar no WhatsApp"
-          />
+          <EditableField
+            contentKey="whatsappGestao"
+            defaultValue={DEFAULT_WHATSAPP_GESTAO}
+            label="Link do WhatsApp — Gestão de Redes Sociais"
+          >
+            <ServiceCard
+              href={content.whatsappGestao ?? DEFAULT_WHATSAPP_GESTAO}
+              external
+              background="#7B9AA6"
+              eyebrow="Exclusiva para profissionais da saúde."
+              title="Gestão de Redes Sociais"
+              description="Planejamento, produção de conteúdo, gestão estratégica e tráfego pago para transformar suas redes sociais em uma ferramenta de autoridade e captação de pacientes."
+              cta="Falar no WhatsApp"
+            />
+          </EditableField>
 
-          <ServiceCard
-            href="https://wa.me/5521968893152?text=Ol%C3%A1%2C%20gostaria%20de%20entrar%20em%20contato"
-            external
-            background="#EA8101"
-            title="Podcasts, Eventos, Aulas e Treinamentos"
-            description="Disponível para:"
-            list={[
-              "Palestras",
-              "Workshops",
-              "Treinamentos corporativos",
-              "Podcasts",
-              "Eventos",
-              "Participações especiais",
-              "Collabs",
-            ]}
-            cta="Entrar em contato"
-          />
+          <EditableField
+            contentKey="whatsappPodcasts"
+            defaultValue={DEFAULT_WHATSAPP_PODCASTS}
+            label="Link do WhatsApp — Podcasts, Eventos, Aulas e Treinamentos"
+          >
+            <ServiceCard
+              href={content.whatsappPodcasts ?? DEFAULT_WHATSAPP_PODCASTS}
+              external
+              background="#EA8101"
+              title="Podcasts, Eventos, Aulas e Treinamentos"
+              description="Disponível para:"
+              list={[
+                "Palestras",
+                "Workshops",
+                "Treinamentos corporativos",
+                "Podcasts",
+                "Eventos",
+                "Participações especiais",
+                "Collabs",
+              ]}
+              cta="Entrar em contato"
+            />
+          </EditableField>
         </div>
 
         {/* Projects showcase */}
@@ -451,13 +523,29 @@ function Index() {
           </p>
 
           <div className="mt-6 flex flex-col gap-4">
-            <ProjectLinkCard href="https://open.spotify.com/show/0NUG0P5uSY1elOZC94108w?si=82b68c3fc6654237">
-              Podcast – Ministério da Saúde
-            </ProjectLinkCard>
+            <EditableField
+              contentKey="podcastLink"
+              defaultValue={DEFAULT_PODCAST_LINK}
+              label="Link — Podcast Ministério da Saúde"
+            >
+              <ProjectLinkCard
+                href={content.podcastLink ?? DEFAULT_PODCAST_LINK}
+              >
+                Podcast – Ministério da Saúde
+              </ProjectLinkCard>
+            </EditableField>
 
-            <ProjectLinkCard href="https://www.instagram.com/turistandopiaui/">
-              Turistando TV
-            </ProjectLinkCard>
+            <EditableField
+              contentKey="turistandoLink"
+              defaultValue={DEFAULT_TURISTANDO_LINK}
+              label="Link — Turistando TV"
+            >
+              <ProjectLinkCard
+                href={content.turistandoLink ?? DEFAULT_TURISTANDO_LINK}
+              >
+                Turistando TV
+              </ProjectLinkCard>
+            </EditableField>
 
             <div className="rounded-[22px] bg-white border border-neutral-200 px-6 py-5 shadow-[0_10px_25px_-15px_rgba(0,0,0,0.15)]">
               <span
@@ -466,15 +554,19 @@ function Index() {
               >
                 Aulas e Treinamentos
               </span>
-              {/* PLACEHOLDER: Glenda/Ju devem substituir cada slot abaixo por uma foto real */}
               <div className="mt-3 grid grid-cols-3 gap-2">
                 {GALLERY_SLOTS.map((slot) => (
-                  <div
-                    key={slot}
-                    className="aspect-square rounded-[10px] bg-[color:var(--brand-pink)]/40 border border-dashed border-[color:var(--brand-red)]/30 flex items-center justify-center text-[9px] text-center text-[color:var(--brand-red)]/70 px-1"
-                  >
-                    {slot}
-                  </div>
+                  <EditableImage
+                    key={slot.key}
+                    contentKey={slot.key}
+                    alt="Foto de aula ou treinamento"
+                    className="aspect-square rounded-[10px]"
+                    placeholder={
+                      <div className="flex h-full w-full items-center justify-center border border-dashed border-[color:var(--brand-red)]/30 bg-[color:var(--brand-pink)]/40 px-1 text-center text-[9px] text-[color:var(--brand-red)]/70">
+                        {slot.label}
+                      </div>
+                    }
+                  />
                 ))}
               </div>
             </div>

@@ -1,6 +1,8 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useState, type FormEvent } from "react";
 import { AGENDA_LINK_PLACEHOLDER, buildWhatsAppUrl } from "@/lib/contact-links";
+import { useEditMode } from "@/hooks/use-edit-mode";
+import { EditableField } from "@/components/edit/EditableField";
 
 export const Route = createFileRoute("/consultoria")({
   component: ConsultoriaPage,
@@ -12,6 +14,7 @@ const labelClassName =
   "text-[10px] tracking-[0.18em] uppercase text-neutral-600";
 
 function ConsultoriaPage() {
+  const { content, isEditMode } = useEditMode();
   const [nome, setNome] = useState("");
   const [instagram, setInstagram] = useState("");
   const [desafio, setDesafio] = useState("");
@@ -23,7 +26,7 @@ function ConsultoriaPage() {
     const message = `Nome: ${nome} / Instagram: ${instagram} / Desafio: ${desafio} / Objetivo: ${objetivo}`;
     window.open(buildWhatsAppUrl(message), "_blank", "noopener,noreferrer");
 
-    window.location.href = AGENDA_LINK_PLACEHOLDER;
+    window.location.href = content.calendarLink ?? AGENDA_LINK_PLACEHOLDER;
   }
 
   return (
@@ -35,6 +38,18 @@ function ConsultoriaPage() {
         >
           ← Voltar
         </Link>
+
+        {isEditMode && (
+          <EditableField
+            contentKey="calendarLink"
+            defaultValue={AGENDA_LINK_PLACEHOLDER}
+            label="Link da agenda (Google Calendar)"
+          >
+            <p className="mt-2 text-[10px] tracking-[0.15em] uppercase text-neutral-500">
+              Link da agenda usado após o envio do formulário
+            </p>
+          </EditableField>
+        )}
 
         <section className="mt-6 text-center">
           <h1

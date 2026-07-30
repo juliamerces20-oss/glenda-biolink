@@ -11,6 +11,9 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as ConsultoriaRouteImport } from './routes/consultoria'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as ApiUploadRouteImport } from './routes/api/upload'
+import { Route as ApiContentRouteImport } from './routes/api/content'
+import { Route as ApiAuthRouteImport } from './routes/api/auth'
 
 const ConsultoriaRoute = ConsultoriaRouteImport.update({
   id: '/consultoria',
@@ -22,31 +25,64 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ApiUploadRoute = ApiUploadRouteImport.update({
+  id: '/api/upload',
+  path: '/api/upload',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiContentRoute = ApiContentRouteImport.update({
+  id: '/api/content',
+  path: '/api/content',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiAuthRoute = ApiAuthRouteImport.update({
+  id: '/api/auth',
+  path: '/api/auth',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/consultoria': typeof ConsultoriaRoute
+  '/api/auth': typeof ApiAuthRoute
+  '/api/content': typeof ApiContentRoute
+  '/api/upload': typeof ApiUploadRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/consultoria': typeof ConsultoriaRoute
+  '/api/auth': typeof ApiAuthRoute
+  '/api/content': typeof ApiContentRoute
+  '/api/upload': typeof ApiUploadRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/consultoria': typeof ConsultoriaRoute
+  '/api/auth': typeof ApiAuthRoute
+  '/api/content': typeof ApiContentRoute
+  '/api/upload': typeof ApiUploadRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/consultoria'
+  fullPaths: '/' | '/consultoria' | '/api/auth' | '/api/content' | '/api/upload'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/consultoria'
-  id: '__root__' | '/' | '/consultoria'
+  to: '/' | '/consultoria' | '/api/auth' | '/api/content' | '/api/upload'
+  id:
+    | '__root__'
+    | '/'
+    | '/consultoria'
+    | '/api/auth'
+    | '/api/content'
+    | '/api/upload'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   ConsultoriaRoute: typeof ConsultoriaRoute
+  ApiAuthRoute: typeof ApiAuthRoute
+  ApiContentRoute: typeof ApiContentRoute
+  ApiUploadRoute: typeof ApiUploadRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -65,12 +101,36 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/api/upload': {
+      id: '/api/upload'
+      path: '/api/upload'
+      fullPath: '/api/upload'
+      preLoaderRoute: typeof ApiUploadRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/content': {
+      id: '/api/content'
+      path: '/api/content'
+      fullPath: '/api/content'
+      preLoaderRoute: typeof ApiContentRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/auth': {
+      id: '/api/auth'
+      path: '/api/auth'
+      fullPath: '/api/auth'
+      preLoaderRoute: typeof ApiAuthRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   ConsultoriaRoute: ConsultoriaRoute,
+  ApiAuthRoute: ApiAuthRoute,
+  ApiContentRoute: ApiContentRoute,
+  ApiUploadRoute: ApiUploadRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
