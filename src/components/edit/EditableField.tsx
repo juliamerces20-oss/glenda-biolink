@@ -60,10 +60,6 @@ export function EditableField({
             type="button"
             aria-label={`Editar ${label}`}
             className="absolute -top-2 -right-2 z-20 hidden h-7 w-7 items-center justify-center rounded-full bg-white text-neutral-900 shadow-md ring-1 ring-black/10 transition-transform hover:scale-105 lg:flex"
-            onClick={(event) => {
-              event.preventDefault();
-              event.stopPropagation();
-            }}
           >
             <Pencil size={13} />
           </button>
